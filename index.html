@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <title>Bitcoin Hub</title>
 </head>
 
@@ -58,9 +59,22 @@
         </table>
     </div>
 
+    <div class="graphInput">
+        <form id="form">
+          <input type="text" class="w-100 citySearch" placeholder="Enter city name">
+          <button type="submit" class="w-100 searchBtn">Search</button>
+        </form>
+        <div class="graphBody">
+          <canvas id="myChart" width="800" height="400"></canvas>
+          
+        </div>
+      </div>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
+    
 </body>
 
 </html>
