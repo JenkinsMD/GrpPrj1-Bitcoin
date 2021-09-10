@@ -73,46 +73,33 @@ async function searchApi() {
   xAxis = getXAxis(data)
   yAxis = getYAxis(data)
 
+//   console.log(xAxis);
+//   console.log(yAxis)
 
-  //Save coords to use in 5 day forecast
-  // const lat = data.coord.lat;
-  // const lon = data.coord.lon;
+  makeChart(xAxis,yAxis)  
+
 
 }
   
 function getXAxis (data) {
-
   var tempX = [];
-  var formattedTemp = [];
-
+  
   // var date3= moment.unix(date2).format("MM/DD/YYYY")
 
   for (i=0; i<data.prices.length;i++) {
-
     // tempX.push(data.prices[i][0])
     tempX.push(moment(data.prices[i][0]).format("MM/DD/YYYY"))
-
   }
-
-  
-  console.log(tempX)
-
-
+  return tempX;
 }
 
 function getYAxis (data) {
-
   var tempY = [];
 
-  
-
   for (i=0; i<data.prices.length;i++) {
-
     tempY.push(data.prices[i][1])
-
   }
-  console.log(tempY)
-
+  return tempY;
 }
 
 
@@ -121,16 +108,19 @@ function makeChart(xArray,yArray) {
     const xLabels = xArray;
     const ylabels = yArray;
 
+    console.log(xLabels);
+    console.log(ylabels);
+
     var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
         // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: xLabels,
         datasets: [{
             label: '# of Votes',
             // data: [12, 19, 3, 5, 2, 3],
-            data: [12, 19, 3, 5, 2, 3],
+            data: ylabels,
           
             borderWidth: 1
         }]
@@ -138,7 +128,7 @@ var myChart = new Chart(ctx, {
     options: {
         scales: {
             y: {
-                beginAtZero: true
+                // beginAtZero: true
             }
         }
     }
