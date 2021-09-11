@@ -1,31 +1,16 @@
-//function currencyConverter (
-    //var exchangeURL 
-//)
-function getElement(id) {
-  return document.getElementById(id);
-}
+const select = document.querySelectorAll('select'); 
+const input = document.querySelectorAll('input');
+const exchangeURL ="https://api.coingecko.com/api/v3/exchange_rates"; 
+let html = '';
 
-fetch('https://api.coingecko.com/api/v3/coins/stellar?localization=false&sparkline=false')
-  .then(res => res.json())
-  .then((res) => {
-    const market_data = res.market_data;
-    getElement('usdprice').innerHTML = "$" + market_data.current_price.usd.toFixed(6);
-  });
+async function currency(){
+    const res = await fetch(exchangeURL);
+    //console.log(res);
+    const data = await res.json(); 
+    console.log(data.rates)
+    const arrKeys = Object.keys(data.rates);
+    console.log(arrKeys)
+    
+};
 
-function calcusd() {
-  let x = getElement("xlm").value;
-  getElement("usd").value = x * getUSD();
-}
-
-function calcxlm() {
-  let x = getElement("usd").value;
-  getElement("xlm").value = x / getUSD();
-}
-
-function getUSD() {
-  try {
-    return parseFloat(getElement('usdprice').innerHTML.replace("$", ""));
-  } catch {
-    return 100;
-  }
-}
+currency(); 
