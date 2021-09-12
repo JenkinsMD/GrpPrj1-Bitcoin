@@ -1,4 +1,6 @@
-.graphBody {
-    height: 800px;
-    width: 800px;
+#themeList {
+    display: flex;
+    align-self: flex-end;
+    width: fit-content;
+
 }

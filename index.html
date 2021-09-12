@@ -12,9 +12,18 @@
     <title>Bitcoin Hub</title>
 </head>
 
-<body>
-    <header>
-        <section class="hero is-primary has-text-centered">
+<body class = "bodyColor">
+    <header class = "headColor">
+        <section class="hero has-text-centered">
+            <!-- --------------------------------------------- -->
+            <select id=themeList>
+                <option value="none" selected disabled hidden>
+                    Select a Theme
+                <option value=green>Green Theme</option>
+                <option value=blue>Blue Theme</option>
+                <option value=dark>Dark Theme</option>
+            </select>
+              <!-- -------------------------------------------------- -->
             <div class="hero-body">
                 <p class="title is-size-2">
                     Bitcoin Hub
@@ -60,19 +69,13 @@
     </div>
 
     <div class="graphInput">
-        <!-- <form id="form">
-          <input type="text" class="w-100 citySearch" placeholder="Enter city name">
-          <button type="submit" class="w-100 searchBtn">Search</button>
-        </form> -->
-        <select id=dropdownList>
-            <option value=24h>24h</option>
-            <option value=5d>5d</option>
-            <option value=30d>30d</option>
 
-
-        </select>
-
-        <div class="graphBody">
+        <div class="graphBody column is-three-fifths has-background-info-light">
+            <select id=dropdownList>
+                <option value=24h>24h</option>
+                <option value=5d>5d</option>
+                <option value=30d>30d</option>
+            </select> Select a time period
           <canvas id="myChart" width="800" height="400"></canvas>
           
         </div>

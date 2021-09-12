@@ -2,19 +2,24 @@
 var graphBody = document.querySelector('.graphBody');
 var graphInput = document.querySelector('.graphinput');
 var dropdown = document.querySelector('#dropdownList');
-var selectCity = "";
+var themeList = document.querySelector('#themeList');
+var bodyColor = document.querySelector('.bodyColor');
+var headColor = document.querySelector('.headColor');
 
 //Moment JS Variables
-var userFrom = moment("9/5/2021","MM/DD/YYYY")
-var userTo =  moment("9/7/2021","MM/DD/YYYY")
-var fromDate = moment(userFrom).unix()
-var toDate = moment(userTo).unix()
+// var userFrom = moment("9/5/2021","MM/DD/YYYY")
+// var userTo =  moment("9/7/2021","MM/DD/YYYY")
+// var fromDate = moment(userFrom).unix()
+// var toDate = moment(userTo).unix()
 
 //Graph Variables
 var xAxis;
 var yAxis;
 var hourxAxis;
 var houryAxis;
+
+//Color variables
+var colorAray = JSON.parse(localStorage.getItem('colorTheme')) || [{primay:"",secondary:""}];
 
 
 
@@ -25,17 +30,11 @@ var hourURL = "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_cu
 //30 day APi call
 var graphURL = "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=30&interval=daily"
 
+//Fetch API data
 searchApi();
 
-// Time conversions --------------------------------------------------
-// var date = moment("9/4/2021","MM/DD/YYYY")
-// var date2 = moment(date).unix()
-// console.log(date2)
-// var date3= moment.unix(date2).format("MM/DD/YYYY")
-// console.log(date3)
-
-//-----------------------------------------------------------------------
-
+//Set Color Theme
+setColor();
 
 //--------------------------------------------------------------
 async function searchApi() {
@@ -56,22 +55,15 @@ async function searchApi() {
   hourxAxis = getXAxis(dataTwo)
   houryAxis = getYAxis(dataTwo)
 
-
-
-
   craftChart()  
-
 
 }
   
+
 function getXAxis (data) {
   var tempX = [];
-  
-  // var date3= moment.unix(date2).format("MM/DD/YYYY")
 
   for (i=0; i<data.prices.length;i++) {
-    // tempX.push(data.prices[i][0])
-    // tempX.push(moment(data.prices[i][0]).format("MM/DD/YYYY"))
     tempX.push(data.prices[i][0])
   }
   return tempX;
@@ -125,8 +117,6 @@ function makeChart(xArray,yArray) {
     const xLabels = xArray;
     const ylabels = yArray;
 
-    // console.log(xLabels);
-    // console.log(ylabels);
 
     //Clears existing graph
     let chartStatus = Chart.getChart("myChart");
@@ -155,9 +145,48 @@ var myChart = new Chart(ctx, {
         scales: {
             y: {
                 // beginAtZero: true
+                // ticks: {
+                //   // // Include a dollar sign in the ticks
+                //   // callback: function(ylabels, index, values) {
+                  //     return '$' + value;
             }
         }
     }
 });
 
 }
+
+
+function setColor () {
+
+  bodyColor.className = "";
+  headColor.className = "";
+
+  if (themeList.value=== "none"){
+    if (colorAray[0].primary===""){
+      colorAray[0].primary = "has-background-primary-light"
+      colorAray[0].secondary = "has-background-primary-dark"
+    }
+    
+  }else if(themeList.value === "green"){
+    colorAray[0].primary = "has-background-primary-light"
+    colorAray[0].secondary = "has-background-primary-dark"
+  }else if (themeList.value === "blue") {
+    colorAray[0].primary = "has-background-info-light"
+    colorAray[0].secondary = "has-background-info-dark"
+  } else {
+    colorAray[0].primary = "has-background-grey-darker"
+    colorAray[0].secondary = "has-background-grey-light"
+
+  }
+
+  bodyColor.classList.add(colorAray[0].primary)
+  headColor.classList.add(colorAray[0].secondary)
+
+ 
+
+  localStorage.setItem('colorTheme', JSON.stringify(colorAray));
+}
+
+//Makes a new graph when a new dropdown choice is selected
+themeList.addEventListener("change", setColor)
