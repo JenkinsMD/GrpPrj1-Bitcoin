@@ -6,12 +6,6 @@ var themeList = document.querySelector('#themeList');
 var bodyColor = document.querySelector('.bodyColor');
 var headColor = document.querySelector('.headColor');
 
-//Moment JS Variables
-// var userFrom = moment("9/5/2021","MM/DD/YYYY")
-// var userTo =  moment("9/7/2021","MM/DD/YYYY")
-// var fromDate = moment(userFrom).unix()
-// var toDate = moment(userTo).unix()
-
 //Graph Variables
 var xAxis;
 var yAxis;
@@ -128,40 +122,29 @@ function makeChart(xArray,yArray) {
 
     var ctx = document.getElementById('myChart').getContext('2d');
     
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        labels: xLabels,
-        datasets: [{
-            label: 'USD Price per Bitcoin',
-            // data: [12, 19, 3, 5, 2, 3],
-            data: ylabels,
-          
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                // beginAtZero: true
-                // ticks: {
-                //   // // Include a dollar sign in the ticks
-                //   // callback: function(ylabels, index, values) {
-                  //     return '$' + value;
-            }
-        }
-    }
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: xLabels,
+          datasets: [{
+              label: 'USD Price per Bitcoin',
+              data: ylabels,
+            
+              borderWidth: 1
+          }]
+      },
+
 });
 
 }
 
-
+//Sets Theme Color using local storage
 function setColor () {
-
+//Clears current color theme
   bodyColor.className = "";
   headColor.className = "";
 
+  //Default theme if local storage is blank
   if (themeList.value=== "none"){
     if (colorAray[0].primary===""){
       colorAray[0].primary = "has-background-primary-light"
@@ -179,12 +162,12 @@ function setColor () {
     colorAray[0].secondary = "has-background-grey-light"
 
   }
-
+//Adding classes to the html
   bodyColor.classList.add(colorAray[0].primary)
   headColor.classList.add(colorAray[0].secondary)
 
  
-
+//Saving new color theme to local storage
   localStorage.setItem('colorTheme', JSON.stringify(colorAray));
 }
 
