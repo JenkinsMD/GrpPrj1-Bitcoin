@@ -3,6 +3,7 @@ https://makandracards.com/rodrigo-manhaes/64663-get-rid-of-bulma-custom-select-c
 select {
     -webkit-appearance: menulist !important;
     -moz-appearance: menulist !important;
+    width: 100%;
   }
   
   .select select:not([multiple]) {
@@ -13,3 +14,28 @@ select {
     border: none !important;
   }
 
+  select:not(:-internal-list-box) {
+    overflow: visible !important;
+    padding-right: 10em;
+}
+
+  #Converter {
+    float: right; 
+    margin-right: 30px;
+  } 
+
+ .card {
+    padding-bottom: 50px;
+    margin: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+@media screen and (max-width: 600px) {
+    .card{
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+}
+  
+ 

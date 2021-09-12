@@ -22,28 +22,22 @@
         </section>
     </header>
 
-    <div class="column is-block is-one-fith p-5" id="Converter">
-        <h1>Price Converter</h1>
-
-        <div class="select is-primary is-full">
-            <select id="currency1">
-                <!--<option value="currency">Select Crypto Currency</option>-->
-            </select> 
-            <input class="input is-primary" type="number" id="amount1">
-        </div>    
-            
-        <div class="select is-primary">
-            <select id="currency2">
-                <!--<option value="currency">Select Currency</option>-->
-            </select>
-            <input class="input is-primary" type="number" id="amount2" readonly>
-            </div>
-        </div>
-
-    </div>
+    <div class="card" id="Converter">
+        <h1 class="title">Price Converter</h1>
+            <div class="select is-primary">
+                <select id="currency1">
+                    <!--<option value="currency">Select Currency</option> linked in JS-->
+                </select> 
+                <input class="input is-primary" type="number" id="amount1">
+                </div>
+            <div class="select is-primary">
+                <select id="currency2">
+                    <!--<option value="currency">Select Currency</option> linked in JS-->
+                </select>
+                    <input class="input is-primary" type="number" id="amount2" readonly>
+            </div>         
     </div>
     
-
     <div class="column is-block is-two-thirds p-4">
         <table class="table is-bordered is-fullwidth">
             <thead>
