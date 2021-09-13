@@ -8,12 +8,22 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <title>Bitcoin Hub</title>
 </head>
 
-<body>
-    <header>
-        <section class="hero is-primary has-text-centered">
+<body class = "bodyColor">
+    <header class = "headColor">
+        <section class="hero has-text-centered">
+            <!-- --------------------------------------------- -->
+            <select id=themeList>
+                <option value="none" selected disabled hidden>
+                    Select a Theme
+                <option value=green>Green Theme</option>
+                <option value=blue>Blue Theme</option>
+                <option value=dark>Dark Theme</option>
+            </select>
+              <!-- -------------------------------------------------- -->
             <div class="hero-body">
                 <p class="title is-size-2">
                     Bitcoin Hub
@@ -21,25 +31,40 @@
             </div>
         </section>
     </header>
+
+ 
 <!--Currency Converter-->
-    <div class="card" id="Converter">
-        <h1 class="title">Price Converter</h1>
-            <div class="select is-primary">
-                <select id="currency1">
+    <div class="card has-background-link-light  " id="Converter">
+        <h1 class="title has-text-centered">Price Converter</h1>
+            <div class="select">
+                <select id="currency1" >
                     <!--<option value="currency">Select Currency</option> linked in JS-->
                 </select> 
-                <input class="input is-primary" type="number" id="amount1">
+                <input class="input " type="number" id="amount1">
                 </div>
-            <div class="select is-primary">
-                <select id="currency2">
+            <div class="select">
+                <select id="currency2" >
                     <!--<option value="currency">Select Currency</option> linked in JS-->
                 </select>
-                    <input class="input is-primary" type="number" id="amount2" readonly>
+                    <input class="input" type="number" id="amount2" readonly>
             </div>         
     </div>
-    
+<!-- Price Graph -->
+    <div class="graphInput">
+
+        <div class="graphBody column is-three-fifths has-background-info-light">
+            <select id=dropdownList>
+                <option value=24h>24h</option>
+                <option value=5d>5d</option>
+                <option value=30d>30d</option>
+            </select> Select a time period
+          <canvas id="myChart" width="800" height="400"></canvas>
+          
+        </div>
+      </div>
+
     <!-- table to add company data holding bitcoin -->
-    <div class="column is-block is-two-thirds p-4">
+    <div class="column is-block is-fullwidth p-4">
         <table class="table is-bordered is-fullwidth has-text-centered">
             <thead>
                 <tr>
@@ -58,9 +83,13 @@
         </table>
     </div>
 
+
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
+    
 </body>
 
 </html>
