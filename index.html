@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <title>Bitcoin Hub</title>
+</head>
+
+<body class="bodyColor">
+    <header class="headColor">
+        <section class="hero has-text-centered">
+            <!-- --------------------------------------------- -->
+            <select id=themeList>
+                <option value="none" selected disabled hidden>
+                    Select a Theme
+                <option value=green>Green Theme</option>
+                <option value=blue>Blue Theme</option>
+                <option value=dark>Dark Theme</option>
+            </select>
+            <!-- -------------------------------------------------- -->
+            <div class="hero-body">
+                <p class="title is-size-2">
+                    Bitcoin Hub
+                </p>
+            </div>
+        </section>
+    </header>
+
+
+    <!--Currency Converter-->
+    <div class="card has-background-link-light" id="Converter">
+        <h1 class="title has-text-centered has-background-info">Price Converter</h1>
+        <div class="select">
+            <select id="currency1">
+                    <!--<option value="currency">Select Currency</option> linked in JS-->
+                </select>
+            <input class="input " type="number" id="amount1">
+        </div>
+        <div class="select">
+            <select id="currency2">
+                    <!--<option value="currency">Select Currency</option> linked in JS-->
+                </select>
+            <input class="input" type="number" id="amount2" readonly>
+        </div>
+    </div>
+
+    <!-- Price Graph -->
+    <div class="graphInput column is-one-half">
+
+        <div class="graphBody  has-background-info-light">
+            <div class="groupDropDown">
+                <select id=dropdownList>
+                    <option value=24h>24h</option>
+                    <option value=5d>5d</option>
+                    <option value=30d>30d</option>
+                </select> Select a time period
+                <canvas id="myChart" width="800" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- table to add company data holding bitcoin -->
+    <h1 class="title has-text-centered p-4">Bitcoin Holdings by Public Companies</h1>
+    <div class="column is-block is-fullwidth p-4">
+        <table class="table is-bordered is-fullwidth has-text-centered has-background-link-light">
+            <thead class="has-background-info">
+                <tr>
+                    <th><abbr title="name">Company Name</abbr></th>
+                    <th><abbr title="symbol">Symbol</th>
+                    <th><abbr title="country">Country</abbr></th>
+                    <th><abbr title="total">Total Holdings</abbr></th>
+                    <th><abbr title="entryValue">Total Entry Value(USD)</abbr></th>
+                    <th><abbr title="currentValue">Total Current Value(USD)</abbr></th>
+                    <th><abbr title="supply">% of Total BTC Supply</abbr></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- append public treasury rows here -->
+            </tbody>
+        </table>
+    </div>
+    <!-- News Feed -->
+    <div class="card newsFeed has-background-info-light is-three-fifths">
+        <h1 class="title has-background-info">NEWS ABOUT CRYPTO</h1>
+        <h2 class="subtitle newsTitle"></h2>
+        <h3 class="newsAuthor"></h3>
+        <p class="newsPreview"></p>
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="./assets/js/script.js"></script>
+
+</body>
+
+</html>

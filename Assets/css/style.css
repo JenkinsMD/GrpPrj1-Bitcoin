@@ -1,0 +1,58 @@
+#themeList,
+#dropdownList {
+    display: flex;
+    align-self: flex-end;
+    width: fit-content;
+}
+
+.graphInput {
+    display: flex;
+    flex-direction: column;
+}
+
+#myChart {
+    width: 100%
+}
+
+
+/* Link was pulled for a fix for Bulma select caret not populating within the box 
+https://makandracards.com/rodrigo-manhaes/64663-get-rid-of-bulma-custom-select-caret-rendering */
+
+select {
+    -webkit-appearance: menulist !important;
+    -moz-appearance: menulist !important;
+    width: 100%;
+}
+
+.select select:not([multiple]) {
+    padding-right: 0.5em !important;
+}
+
+.select:not(.is-multiple):not(.is-loading)::after {
+    border: none !important;
+}
+
+select:not(:-internal-list-box) {
+    overflow: visible !important;
+    padding-right: 10em;
+}
+
+#Converter {
+    float: right;
+    margin-right: 150px;
+    margin-top: 200px;
+}
+
+.card {
+    padding-bottom: 50px;
+    margin: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .card {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+}
