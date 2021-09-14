@@ -17,7 +17,7 @@ var hourxAxis;
 var houryAxis;
 
 //Color variables
-var colorAray = JSON.parse(localStorage.getItem('colorTheme')) || [{primay:'',secondary:''}];
+var colorAray = JSON.parse(localStorage.getItem('colorTheme')) || [{ primay: '', secondary: '' }];
 
 //-------------------------------------------------------------------------
 //Variables jQuery for currency converter 
@@ -28,7 +28,7 @@ const amount2 = $("#amount2")
 let html = '';
 
 //Variable to Coingecko API
-const exchangeURL ="https://api.coingecko.com/api/v3/exchange_rates"; 
+const exchangeURL = "https://api.coingecko.com/api/v3/exchange_rates";
 
 //-------------------------------------------------------------------------
 //Variable for table 
@@ -59,74 +59,74 @@ setNews();
 
 //Search API for graph data
 async function searchApi() {
- 
-  //fetch 30day data
-  const response = await fetch(graphURL);
-  const data = await response.json();
 
-  // console.log(data)
+    //fetch 30day data
+    const response = await fetch(graphURL);
+    const data = await response.json();
 
-  xAxis = getXAxis(data)
-  yAxis = getYAxis(data)
+    // console.log(data)
 
-  //fetch 24 hour data
-  const responseTwo = await fetch(hourURL);
-  const dataTwo = await responseTwo.json();
+    xAxis = getXAxis(data)
+    yAxis = getYAxis(data)
 
-  hourxAxis = getXAxis(dataTwo)
-  houryAxis = getYAxis(dataTwo)
+    //fetch 24 hour data
+    const responseTwo = await fetch(hourURL);
+    const dataTwo = await responseTwo.json();
 
-  craftChart()  
+    hourxAxis = getXAxis(dataTwo)
+    houryAxis = getYAxis(dataTwo)
+
+    craftChart()
 
 }
-  
-//Function to get x axis for graph
-function getXAxis (data) {
-  var tempX = [];
 
-  for (i=0; i<data.prices.length;i++) {
-    tempX.push(data.prices[i][0])
-  }
-  return tempX;
+//Function to get x axis for graph
+function getXAxis(data) {
+    var tempX = [];
+
+    for (i = 0; i < data.prices.length; i++) {
+        tempX.push(data.prices[i][0])
+    }
+    return tempX;
 }
 
 //Function for y axis of graph
-function getYAxis (data) {
-  var tempY = [];
+function getYAxis(data) {
+    var tempY = [];
 
-  for (i=0; i<data.prices.length;i++) {
-    tempY.push(data.prices[i][1])
-  }
-  return tempY;
+    for (i = 0; i < data.prices.length; i++) {
+        tempY.push(data.prices[i][1])
+    }
+    return tempY;
 }
 
 //Function to identify which graph to make
-function craftChart () {
-  var tempXArray = []
-  var tempYArray = []
+function craftChart() {
+    var tempXArray = []
+    var tempYArray = []
 
-  //Create chart for past 24 hours
-  if(dropdown.value==="24h"){
-    for (i=0;i<hourxAxis.length;i++){
-      tempXArray.push(moment(hourxAxis[i]).format("dddd ha"))
-    }
-    makeChart(tempXArray,houryAxis)
+    //Create chart for past 24 hours
+    if (dropdown.value === "24h") {
+        for (i = 0; i < hourxAxis.length; i++) {
+            tempXArray.push(moment(hourxAxis[i]).format("dddd ha"))
+        }
+        makeChart(tempXArray, houryAxis)
 
-  } else if(dropdown.value==="5d"){
-    //create chart for past 5 days
-    for (i=xAxis.length-5;i<xAxis.length;i++){
-      tempXArray.push(moment(xAxis[i]).format("MM/DD/YYYY"));
-      tempYArray.push(yAxis[i]);
+    } else if (dropdown.value === "5d") {
+        //create chart for past 5 days
+        for (i = xAxis.length - 5; i < xAxis.length; i++) {
+            tempXArray.push(moment(xAxis[i]).format("MM/DD/YYYY"));
+            tempYArray.push(yAxis[i]);
 
-      makeChart(tempXArray,tempYArray); 
+            makeChart(tempXArray, tempYArray);
+        }
+    } else {
+        //Create chart for past 30 days
+        for (i = 0; i < xAxis.length; i++) {
+            tempXArray.push(moment(xAxis[i]).format("MM/DD/YYYY"));
+        }
+        makeChart(tempXArray, yAxis)
     }
-  }else{
-    //Create chart for past 30 days
-    for (i=0;i<xAxis.length;i++){
-      tempXArray.push(moment(xAxis[i]).format("MM/DD/YYYY"));
-    }
-    makeChart(tempXArray, yAxis)  
-  }
 
 }
 
@@ -136,73 +136,73 @@ dropdown.addEventListener("change", craftChart)
 
 
 //Creates graph
-function makeChart(xArray,yArray) {
+function makeChart(xArray, yArray) {
     const xLabels = xArray;
     const ylabels = yArray;
 
 
     //Clears existing graph
     let chartStatus = Chart.getChart("myChart");
-    if (chartStatus != undefined){
-      chartStatus.destroy();
+    if (chartStatus != undefined) {
+        chartStatus.destroy();
 
     }
-    
+
 
     var ctx = document.getElementById('myChart').getContext('2d');
-    
-  var myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-          labels: xLabels,
-          datasets: [{
-              label: 'USD Price per Bitcoin',
-              data: ylabels,
-            
-              borderWidth: 1
-          }]
-      },
 
-});
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: xLabels,
+            datasets: [{
+                label: 'USD Price per Bitcoin',
+                data: ylabels,
+
+                borderWidth: 1
+            }]
+        },
+
+    });
 
 }
 
 //Sets Theme Color using local storage
-function setColor () {
-//Clears current color theme
-  bodyColor.className = "";
-  headColor.className = "";
+function setColor() {
+    //Clears current color theme
+    bodyColor.className = "";
+    headColor.className = "";
 
 
 
-  //Default theme if local storage is blank
-  if (themeList.value=== "none"){
-    console.log("none")
-    console.log(colorAray[0].primary)
-    if (colorAray[0].primary===undefined){
-      console.log("in temp")
-      colorAray[0].primary = "has-background-primary-light"
-      colorAray[0].secondary = "has-background-primary-dark"
+    //Default theme if local storage is blank
+    if (themeList.value === "none") {
+        console.log("none")
+        console.log(colorAray[0].primary)
+        if (colorAray[0].primary === undefined) {
+            console.log("in temp")
+            colorAray[0].primary = "has-background-primary-light"
+            colorAray[0].secondary = "has-background-primary-dark"
+        }
+
+    } else if (themeList.value === "green") {
+        colorAray[0].primary = "has-background-primary-light"
+        colorAray[0].secondary = "has-background-primary-dark"
+    } else if (themeList.value === "blue") {
+        colorAray[0].primary = "has-background-info-light"
+        colorAray[0].secondary = "has-background-info-dark"
+    } else {
+        colorAray[0].primary = "has-background-grey-darker"
+        colorAray[0].secondary = "has-background-grey-light"
+
     }
-    
-  }else if(themeList.value === "green"){
-    colorAray[0].primary = "has-background-primary-light"
-    colorAray[0].secondary = "has-background-primary-dark"
-  }else if (themeList.value === "blue") {
-    colorAray[0].primary = "has-background-info-light"
-    colorAray[0].secondary = "has-background-info-dark"
-  } else {
-    colorAray[0].primary = "has-background-grey-darker"
-    colorAray[0].secondary = "has-background-grey-light"
+    //Adding classes to the html
+    bodyColor.classList.add(colorAray[0].primary)
+    headColor.classList.add(colorAray[0].secondary)
 
-  }
-//Adding classes to the html
-  bodyColor.classList.add(colorAray[0].primary)
-  headColor.classList.add(colorAray[0].secondary)
 
- 
-//Saving new color theme to local storage
-  localStorage.setItem('colorTheme', JSON.stringify(colorAray));
+    //Saving new color theme to local storage
+    localStorage.setItem('colorTheme', JSON.stringify(colorAray));
 }
 
 //Makes a new graph when a new dropdown choice is selected
@@ -212,54 +212,54 @@ themeList.addEventListener("change", setColor)
 
 
 //Async function for the currency converter 
-async function currency(){
+async function currency() {
     //fetch the API 
     const response = await fetch(exchangeURL);
-    const data = await response.json(); 
+    const data = await response.json();
 
     //Currency names to select 
     const arrKeys = Object.keys(data.rates);
 
     //Map currency names to be able to select in a dropdown 
-    arrKeys.map(item =>{
+    arrKeys.map(item => {
         return html += `<option value=${item}>${item}</option>`;
     });
- 
+
     $("#currency1, #currency2").html(html)
 
     //on keyup currency to log the rate 
-    amount1.keyup(()=>{
+    amount1.keyup(() => {
         //console.log("keyup")
         const value1 = currency1.val();
         //console.log(value1)
-        const value2 = currency2.val(); 
+        const value2 = currency2.val();
 
         //parse into the the data if NaN to input log 0 
         let currency1Amount = parseInt(amount1.val());
-        if (isNaN(currency1Amount)){
-            currency1Amount=0;
+        if (isNaN(currency1Amount)) {
+            currency1Amount = 0;
         }
-        
+
         //to set the value for currency one and two chosen by the user 
-        const currency1Value = data.rates[value1].value; 
+        const currency1Value = data.rates[value1].value;
         const currency2Value = data.rates[value2].value;
         //calcuate late the conversion rate 
-        const currency2Amount = currency1Amount*(currency2Value/currency1Value);
+        const currency2Amount = currency1Amount * (currency2Value / currency1Value);
         amount2.val(currency2Amount);
-        
+
     });
-        //on keyup change the currency rate to reflect the option chosen for currency one and two
-        currency1.change(()=>{
-            amount1.keyup()
-        });
-        
-        currency2.change(()=>{
-            amount1.keyup()
-        });
-        
+    //on keyup change the currency rate to reflect the option chosen for currency one and two
+    currency1.change(() => {
+        amount1.keyup()
+    });
+
+    currency2.change(() => {
+        amount1.keyup()
+    });
+
 }
 
-currency(); 
+currency();
 
 //-------------------------------------------------------------------------
 
@@ -275,6 +275,24 @@ async function getPublicTreasury(url) {
     // console.log(data);
     var companies = data.companies;
     // console.log(companies);
+
+    // converting total current and total entry values to USD format
+    for (var i = 0; i < companies.length; i++) {
+        // console.log("usd : " + companies[i].total_current_value_usd)
+        if (companies[i].total_current_value_usd > 0) {
+            var usdCurrentValue = formatter.format(companies[i].total_current_value_usd);
+            companies[i].total_current_value_usd = usdCurrentValue;
+
+        }
+    }
+
+    for (var i = 0; i < companies.length; i++) {
+        // console.log("usd : " + companies[i].total_entry_value_usd)
+        if (companies[i].total_entry_value_usd > 0) {
+            var usdEntryValue = formatter.format(companies[i].total_entry_value_usd);
+            companies[i].total_entry_value_usd = usdEntryValue;
+        }
+    }
 
     var tableString = "<tr>"
         // for each loop to iterate companies array
@@ -294,25 +312,25 @@ async function getPublicTreasury(url) {
 
 // News function
 
-async function setNews () {
-  var newsURL = "https://data.messari.io/api/v1/news"
+async function setNews() {
+    var newsURL = "https://data.messari.io/api/v1/news"
 
-   //fetch news data
-   const response = await fetch(newsURL);
-   const data = await response.json();
+    //fetch news data
+    const response = await fetch(newsURL);
+    const data = await response.json();
 
-//Set random variable to choose news article
-   var k = Math.floor(Math.random() * data.data.length)
-  
-//Display news article preview
-  newsTitle.textContent = (data.data[k].title)
-  newsAuthor.textContent = "By " + data.data[k].author.name
-  newsPreview.textContent = (data.data[k].content).substring(0,500)
+    //Set random variable to choose news article
+    var k = Math.floor(Math.random() * data.data.length)
 
-  var link = document.createElement("a")
-  link.innerHTML = "...CLICK HERE FOR FULl ARTICLE"
-  link.setAttribute("href", data.data[k].url)
+    //Display news article preview
+    newsTitle.textContent = (data.data[k].title)
+    newsAuthor.textContent = "By " + data.data[k].author.name
+    newsPreview.textContent = (data.data[k].content).substring(0, 500)
 
-  newsPreview.appendChild(link)
- 
+    var link = document.createElement("a")
+    link.innerHTML = "...CLICK HERE FOR FULl ARTICLE"
+    link.setAttribute("href", data.data[k].url)
+
+    newsPreview.appendChild(link)
+
 }
