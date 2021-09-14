@@ -50,16 +50,17 @@
             </div>         
     </div>
 <!-- Price Graph -->
-    <div class="graphInput">
+    <div class="graphInput column is-one-half">
 
-        <div class="graphBody column is-three-fifths has-background-info-light">
-            <select id=dropdownList>
-                <option value=24h>24h</option>
-                <option value=5d>5d</option>
-                <option value=30d>30d</option>
-            </select> Select a time period
-          <canvas id="myChart" width="800" height="400"></canvas>
-          
+        <div class="graphBody  has-background-info-light">
+            <div class = "groupDropDown">
+                <select id=dropdownList>
+                    <option value=24h>24h</option>
+                    <option value=5d>5d</option>
+                    <option value=30d>30d</option>
+                </select> Select a time period
+            <canvas id="myChart" width="800" height="400"></canvas>
+            </div>
         </div>
       </div>
 
@@ -82,8 +83,15 @@
             </tbody>
         </table>
     </div>
-
-
+<!-- News Feed -->
+    <div class="newsFeed has-background-info-light">
+        <h1 class ="is-size-1">NEWS ABOUT CRYPTO</h1>
+        <h2 class="newsTitle is-size-2"></h2>
+        <h3 class="newsAuthor is-size-3"></h3>
+        <p class="newsPreview"></p>
+        
+        
+    </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

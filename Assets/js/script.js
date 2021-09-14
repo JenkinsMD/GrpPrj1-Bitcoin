@@ -5,6 +5,10 @@ var dropdown = document.querySelector('#dropdownList');
 var themeList = document.querySelector('#themeList');
 var bodyColor = document.querySelector('.bodyColor');
 var headColor = document.querySelector('.headColor');
+var newsTitle = document.querySelector('.newsTitle');
+var newsPreview = document.querySelector('.newsPreview');
+var newsAuthor = document.querySelector('.newsAuthor');
+
 
 //Graph Variables
 var xAxis;
@@ -13,7 +17,7 @@ var hourxAxis;
 var houryAxis;
 
 //Color variables
-var colorAray = JSON.parse(localStorage.getItem('colorTheme')) || [{primay:"",secondary:""}];
+var colorAray = JSON.parse(localStorage.getItem('colorTheme')) || [{primay:'',secondary:''}];
 
 //-------------------------------------------------------------------------
 //Variables jQuery for currency converter 
@@ -49,6 +53,9 @@ searchApi();
 
 //Set Color Theme
 setColor();
+
+//Set News feed
+setNews();
 
 //Search API for graph data
 async function searchApi() {
@@ -166,9 +173,14 @@ function setColor () {
   bodyColor.className = "";
   headColor.className = "";
 
+
+
   //Default theme if local storage is blank
   if (themeList.value=== "none"){
-    if (colorAray[0].primary===""){
+    console.log("none")
+    console.log(colorAray[0].primary)
+    if (colorAray[0].primary===undefined){
+      console.log("in temp")
       colorAray[0].primary = "has-background-primary-light"
       colorAray[0].secondary = "has-background-primary-dark"
     }
@@ -269,7 +281,7 @@ async function getPublicTreasury(url) {
     companies.forEach(element => {
         // for loop to iterate object values inside companies array
         for (var prop in element) {
-            console.log("props: " + prop);
+            // console.log("props: " + prop);
             tableString += `<td>${element[prop]}</td>`
         }
         tableString += "</tr>"
@@ -278,4 +290,29 @@ async function getPublicTreasury(url) {
     // append the data rows dynamically to tbody element in html
     tableBody.append(tableString);
 
+}
+
+// News function
+
+async function setNews () {
+  var newsURL = "https://data.messari.io/api/v1/news"
+
+   //fetch news data
+   const response = await fetch(newsURL);
+   const data = await response.json();
+
+//Set random variable to choose news article
+   var k = Math.floor(Math.random() * data.data.length)
+  
+//Display news article preview
+  newsTitle.textContent = (data.data[k].title)
+  newsAuthor.textContent = "By " + data.data[k].author.name
+  newsPreview.textContent = (data.data[k].content).substring(0,500)
+
+  var link = document.createElement("a")
+  link.innerHTML = "...CLICK HERE FOR FULl ARTICLE"
+  link.setAttribute("href", data.data[k].url)
+
+  newsPreview.appendChild(link)
+ 
 }
