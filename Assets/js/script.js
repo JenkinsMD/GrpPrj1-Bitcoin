@@ -17,7 +17,7 @@ var hourxAxis;
 var houryAxis;
 
 //Color variables
-var colorAray = JSON.parse(localStorage.getItem('colorTheme')) || [{primay:"",secondary:""}];
+var colorAray = JSON.parse(localStorage.getItem('colorTheme')) || [{primay:'',secondary:''}];
 
 //-------------------------------------------------------------------------
 //Variables jQuery for currency converter 
@@ -173,9 +173,14 @@ function setColor () {
   bodyColor.className = "";
   headColor.className = "";
 
+
+
   //Default theme if local storage is blank
   if (themeList.value=== "none"){
-    if (colorAray[0].primary===""){
+    console.log("none")
+    console.log(colorAray[0].primary)
+    if (colorAray[0].primary===undefined){
+      console.log("in temp")
       colorAray[0].primary = "has-background-primary-light"
       colorAray[0].secondary = "has-background-primary-dark"
     }
